@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { asset, cn } from "@/lib/utils";
 
 type LogoProps = {
   /** Esquema sobre fondo oscuro */
@@ -21,12 +20,12 @@ export function Logo({ dark = false, compact = false, className }: LogoProps) {
       aria-label="HSEQ Legal y Gestión — Inicio"
       className={cn("group inline-flex items-center gap-3", className)}
     >
-      <Image
-        src="/logo-mark.png"
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={asset("/logo-mark.png")}
         alt=""
         width={284}
         height={284}
-        priority
         className="h-11 w-11 shrink-0 transition-transform duration-500 group-hover:rotate-3"
       />
       <span className="flex flex-col leading-none">
