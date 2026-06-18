@@ -1,26 +1,153 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ===========================================================================
+   HSEQ Legal y Gestión — Sistema de diseño
+   Paleta extraída del logo de la marca.
+   =========================================================================== */
+
+@theme {
+  /* Marca — azul marino (primario) */
+  --color-navy: #042c5c;
+  --color-navy-deep: #03203f;
+  --color-navy-soft: #0b3c72;
+
+  /* Marca — azul royal (acento, escudo del logo) */
+  --color-royal: #0a59a8;
+  --color-sky: #2f7dc4;
+  --color-sky-soft: #d7e6f4;
+
+  /* Marca — verde (hoja del logo) */
+  --color-green: #4e8c1f;
+  --color-green-bright: #6cb52d;
+  --color-green-soft: #e4f1d6;
+
+  /* Marca — gris (neutro del logo) */
+  --color-stone: #5a5f63;
+  --color-stone-light: #8a9097;
+
+  /* Superficies */
+  --color-ink: #0d1b2a;
+  --color-cloud: #eef2f7;
+  --color-paper: #ffffff;
+  --color-mist: #f7f9fc;
+  --color-hairline: #e2e8f1;
+
+  /* Tipografía */
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+
+  /* Radios y sombras */
+  --radius-card: 1.25rem;
+  --shadow-soft: 0 1px 2px rgba(4, 44, 92, 0.04),
+    0 12px 32px -12px rgba(4, 44, 92, 0.18);
+  --shadow-lift: 0 2px 4px rgba(4, 44, 92, 0.05),
+    0 28px 60px -24px rgba(4, 44, 92, 0.32);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+  }
+
+  ::selection {
+    background: var(--color-green-bright);
+    color: var(--color-navy-deep);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.018em;
+    line-height: 1.05;
+    color: var(--color-navy-deep);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  /* Etiqueta superior tipo "eyebrow" */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-royal);
+  }
+
+  /* Textura sutil de cuadrícula para fondos */
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        rgba(4, 44, 92, 0.045) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(4, 44, 92, 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Halo de color difuso para dar profundidad */
+  .glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s ease;
+  }
+  .link-underline:hover {
+    background-size: 100% 1.5px;
+  }
+}
+
+/* Animación de entrada (reveal) */
+@keyframes hseq-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: hseq-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    animation: none;
+  }
 }
